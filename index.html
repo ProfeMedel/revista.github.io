@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revista Digital - Vida Activa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="imagen/icono.png">
+</head>
+<body>
+  <main class="scene">
+    <div class="magazine" id="magazine" aria-label="Revista digital">
+      <div class="shadow"></div>
+      <div class="gutter"></div>
+
+      <!-- Páginas de fondo estáticas -->
+      <div class="spread">
+        <div class="paper left" id="leftPage">
+          <img src="imagen/pagina1.png" alt="Página izquierda">
+        </div>
+        <div class="paper right" id="rightPage">
+          <img src="imagen/pagina2.png" alt="Página derecha">
+        </div>
+      </div>
+
+      <!-- Hoja 3D giratoria hacia la izquierda (Avanzar) -->
+      <div class="turn turn-right" id="turnRight">
+        <div class="turn-face front">
+          <img src="" alt="Frente hoja girando">
+          <div class="fold-shadow"></div>
+        </div>
+        <div class="turn-face back">
+          <img src="" alt="Dorso hoja girando">
+          <div class="fold-shadow"></div>
+        </div>
+      </div>
+
+      <!-- Hoja 3D giratoria hacia la derecha (Retroceder) -->
+      <div class="turn turn-left" id="turnLeft">
+        <div class="turn-face front">
+          <img src="" alt="Frente hoja girando">
+          <div class="fold-shadow"></div>
+        </div>
+        <div class="turn-face back">
+          <img src="" alt="Dorso hoja girando">
+          <div class="fold-shadow"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn" type="button" aria-label="Página anterior">‹</button>
+      <span id="pageInfo">Portada</span>
+      <button id="nextBtn" type="button" aria-label="Página siguiente">›</button>
+    </div>
+
+    <p class="hint">Haz clic a los lados, usa las flechas (← / →) o arrastra para pasar la página.</p>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Georgia,"Times New Roman",serif}
+body{min-height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 20%,#334155,#1e293b 55%,#0f172a);color:#f8fafc}
+.scene{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:25px;perspective:2500px}
+
+/* Tamaño general de la revista */
+.magazine{position:relative;width:min(90vw,820px);aspect-ratio:2/1.38;filter:drop-shadow(0 28px 24px rgba(0,0,0,.5));transform-style:preserve-3d}
+.shadow{position:absolute;inset:7% 2% 1%;background:#0006;filter:blur(25px);transform:translateZ(-50px);border-radius:12px}
+.spread{position:absolute;inset:0;display:flex;transform-style:preserve-3d}
+.paper{position:absolute;top:0;width:50%;height:100%;overflow:hidden;background:#faf8f5;transition:all 0.35s cubic-bezier(.25,1,.5,1)}
+.paper.left{left:0;border-radius:5px 0 0 5px;box-shadow:inset -12px 0 20px -20px #000}
+.paper.right{right:0;border-radius:0 5px 5px 0;box-shadow:inset 12px 0 20px -20px #000}
+.paper img,.turn img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none}
+
+/* Efecto Hoja Giratoria 3D */
+.turn{position:absolute;top:0;width:50%;height:100%;transform-style:preserve-3d;z-index:20;display:none;pointer-events:none}
+.turn.active{display:block}
+
+/* Giro a la Derecha -> Avanzar hacia la izquierda */
+.turn-right{left:50%;transform-origin:left center}
+.turn-right.animating{animation:flipRight 0.75s ease-in-out forwards}
+
+@keyframes flipRight {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(-90deg) scaleX(0.96) skewY(1.5deg); }
+  100% { transform: rotateY(-180deg); }
+}
+
+/* Giro a la Izquierda -> Retroceder hacia la derecha */
+.turn-left{left:0%;transform-origin:right center}
+.turn-left.animating{animation:flipLeft 0.75s ease-in-out forwards}
+
+@keyframes flipLeft {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg) scaleX(0.96) skewY(-1.5deg); }
+  100% { transform: rotateY(180deg); }
+}
+
+.turn-face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#faf8f5}
+.turn-right .turn-face.back{transform:rotateY(180deg)}
+.turn-left .turn-face.back{transform:rotateY(-180deg)}
+
+/* Sombra de doblez de papel */
+.fold-shadow{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.2) 100%);opacity:0.6}
+
+.gutter{position:absolute;left:50%;top:0;width:3px;height:100%;z-index:50;pointer-events:none;background:linear-gradient(90deg,#0003,#fff4,#0002);box-shadow:0 0 10px #0004}
+.controls{margin-top:25px;display:flex;align-items:center;gap:20px}
+.controls button{width:48px;height:48px;border:1px solid #ffffff44;border-radius:50%;background:#ffffff15;color:#fff;font:36px/42px Georgia;cursor:pointer;transition:all 0.2s}
+.controls button:hover:not(:disabled){background:#ffffff35;transform:scale(1.05)}
+.controls button:disabled{opacity:.2;cursor:default}
+#pageInfo{width:180px;text-align:center;color:#e2e8f0;font:600 15px Arial;letter-spacing:0.5px}
+.hint{margin:12px 0 0;color:#94a3b8;font:13px Arial}
+
+/* Modificaciones Portada y Contraportada */
+.magazine.cover-mode #leftPage { display: none !important; }
+.magazine.cover-mode #rightPage { left: 25% !important; border-radius: 6px !important; box-shadow: 0 15px 35px rgba(0,0,0,0.5) !important; }
+.magazine.back-cover-mode #rightPage { display: none !important; }
+.magazine.back-cover-mode #leftPage { left: 25% !important; border-radius: 6px !important; box-shadow: 0 15px 35px rgba(0,0,0,0.5) !important; }
+
+@media(max-width:700px){.scene{padding:12px}.magazine{width:95vw}.controls{margin-top:16px;gap:12px}.controls button{width:42px;height:42px;font-size:30px}}
